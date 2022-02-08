@@ -1,4 +1,8 @@
 .header {
+  background-color: #465DFF;
+}
+
+.header__header-container {
   min-height: 74px;
   margin: 0 70px;
   display: flex;
