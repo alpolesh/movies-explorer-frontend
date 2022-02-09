@@ -1,0 +1,79 @@
+.about-project {
+  padding: 110px 75px;
+}
+
+.about-project__title {
+  margin: 0;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 27px;
+  border-bottom: 1px solid #000000;
+  padding-bottom: 23px;
+}
+
+.about-project__info-container {
+  margin-top: 70px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-project__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-project__info-title {
+  margin: 0;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.about-project__info-description {
+  margin: 26px 0 0 0;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.progress-bar {
+  margin-top: 110px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.progress-bar__item-container {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-bar__item-container:first-child {
+  background-color: #2BE080;
+}
+
+.progress-bar__item-container:nth-child(2) {
+  background-color: #F2F2F2;
+}
+
+.progress-bar__item-container:nth-child(2n+1) {
+  width: 20%;
+}
+
+.progress-bar__item-container:nth-child(2n) {
+  width: 80%;
+}
+
+.progress-bar__item-week {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.progress-bar__item-sphere {
+  color: #A0A0A0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
