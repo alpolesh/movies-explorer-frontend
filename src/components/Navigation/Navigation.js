@@ -1,4 +1,5 @@
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import headerLinkIcon from '../../images/header__link-icon.png';
 function Navigation() {
   return (
     <nav className="header__navigation-container">
@@ -6,15 +7,22 @@ function Navigation() {
         <Switch>
           <Route path="/movies">
             <div className="header__navigation">
-              <Link to="/movies" style={{textDecoration: 'none'}}><p className="header__link">Фильмы</p></Link>
+              <Link to="/movies" style={{textDecoration: 'none'}}><p className="header__link header__link_type_bold">Фильмы</p></Link>
               <Link to="/saved-movies" style={{textDecoration: 'none'}}><p className="header__link">Сохранённые фильмы</p></Link>
-              <Link to="/profile" style={{textDecoration: 'none'}}><p className="header__link-account">Аккаунт</p></Link>
+              <Link to="/profile" style={{textDecoration: 'none'}}>
+                <div className="header__link-account-container">
+                  <p className="header__link-account">Аккаунт</p>
+                  <div className="header__link-icon-container">
+                    <img className="header__link-icon" src={headerLinkIcon} alt="account icon" />
+                  </div>
+                </div>
+              </Link>
             </div>
           </Route>
           <Route exact path="/">
             <div className="header__navigation">
-              <Link to="/signup" style={{textDecoration: 'none'}}><p className="header__link">Регистрация</p></Link>
-              <Link to="/signin" style={{textDecoration: 'none'}}><button className="header__link-button">Войти</button></Link>
+              <Link to="/signup" style={{textDecoration: 'none'}}><p className="header__link header__link_route_main">Регистрация</p></Link>
+              <Link to="/signin" style={{textDecoration: 'none'}}><button className="header__link-button header__link-button_route_main">Войти</button></Link>
             </div>
           </Route>
         </Switch>
