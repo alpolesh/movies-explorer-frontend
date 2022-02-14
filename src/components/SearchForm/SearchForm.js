@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import searchIcon from '../../images/search__icon.png';
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm() {
   const [movieTitle, setMovieTitle] = useState('');
@@ -24,13 +25,7 @@ function SearchForm() {
           <button type="submit" className="search__submit"><img className="search__icon" src={searchIcon} alt="search icon" /></button>
         </div>
       </form>
-      <div className="search__short-movies-filter">
-        <label className="switch">
-          <input type="checkbox" className="switch__checkbox" />
-          <span className="switch__slider"></span>
-        </label>
-        <span className="search__caption">Короткометражки</span>
-      </div>
+      <FilterCheckbox />
     </section>
   )
 }
