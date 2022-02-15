@@ -1,0 +1,14 @@
+.movies {
+  margin-top: 9px;
+  padding: 70px 70px 80px;
+}
+
+.movies__card-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 32px 20px;
+  list-style-type: none;
+  padding: 0;
+}
+

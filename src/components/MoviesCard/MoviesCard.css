@@ -1,0 +1,71 @@
+.movies__card-container {
+  width: 270px;
+  max-height: 218px;
+  display: flex;
+  flex-direction: column;
+  background-color: #FDFDFD;
+  box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.movies__image {
+  height: 151px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.movies__movie-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 14px 0 0 0;
+  padding: 0 12px;
+}
+
+.movies__movie-title {
+  margin: 0;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.movies__movie-checkbox-container {
+  position: relative;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
+.movies__movie-checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.movies__checkbox-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-transition: .4s;
+  transition: .4s;
+  background-color: #F9F9F9;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.09);
+  border-radius: 50%;
+  border: 1px solid #FFFFFF;
+}
+
+.movies__movie-checkbox:checked + .movies__checkbox-slider {
+  background-color: #2BE080;
+}
+
+.movies__movie-duration {
+  margin: 0;
+  padding: 10px 0 14px 12px;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  color: #A0A0A0;
+}
