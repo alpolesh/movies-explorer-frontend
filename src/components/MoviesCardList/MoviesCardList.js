@@ -1,9 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import moviesImage1 from '../../images/moviesCardList__image_1.jpg';
-import moviesImage2 from '../../images/moviesCardList__image_2.jpg';
-import moviesImage3 from '../../images/moviesCardList__image_3.jpg';
-import moviesImage4 from '../../images/moviesCardList__image_4.jpg';
-import moviesImage5 from '../../images/moviesCardList__image_5.jpg';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 const cardsArr = [
@@ -72,6 +67,7 @@ function MoviesCardList() {
           />
         ))}
       </ul>
+      <button className="movies__button-more">Ещё</button>
     </section>
   )
 }
