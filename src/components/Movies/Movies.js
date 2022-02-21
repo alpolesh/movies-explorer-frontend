@@ -9,6 +9,9 @@ function Movies() {
     <>
       <SearchForm />
       {isMoviesLoaded ? <MoviesCardList /> : <Preloader />}
+      <div className="button-more-container">
+        <button className="button-more">Ещё</button>
+      </div>
     </>
   )
 }

@@ -67,7 +67,6 @@ function MoviesCardList() {
           />
         ))}
       </ul>
-      <button className="movies__button-more">Ещё</button>
     </section>
   )
 }
