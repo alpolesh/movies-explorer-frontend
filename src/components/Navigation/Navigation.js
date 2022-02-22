@@ -5,7 +5,13 @@ function Navigation() {
     <nav className="header__navigation-container">
       <BrowserRouter>
         <Switch>
-          <Route path="/movies">
+          <Route exact path="/">
+            <div className="header__navigation">
+              <Link to="/signup" style={{textDecoration: 'none'}}><p className="header__link header__link_route_main">Регистрация</p></Link>
+              <Link to="/signin" style={{textDecoration: 'none'}}><button className="header__link-button header__link-button_route_main">Войти</button></Link>
+            </div>
+          </Route>
+          <Route path="/">
             <div className="header__navigation">
               <Link to="/movies" style={{textDecoration: 'none'}}><p className="header__link header__link_type_bold">Фильмы</p></Link>
               <Link to="/saved-movies" style={{textDecoration: 'none'}}><p className="header__link">Сохранённые фильмы</p></Link>
@@ -17,12 +23,6 @@ function Navigation() {
                   </div>
                 </div>
               </Link>
-            </div>
-          </Route>
-          <Route exact path="/">
-            <div className="header__navigation">
-              <Link to="/signup" style={{textDecoration: 'none'}}><p className="header__link header__link_route_main">Регистрация</p></Link>
-              <Link to="/signin" style={{textDecoration: 'none'}}><button className="header__link-button header__link-button_route_main">Войти</button></Link>
             </div>
           </Route>
         </Switch>
