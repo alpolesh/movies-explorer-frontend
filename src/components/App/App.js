@@ -7,19 +7,20 @@ import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
+import Register from '../Register/Register';
 
 function App() {
   return (
     <div className="App">
-      <Header />
+      {/* <Header /> */}
       <BrowserRouter>
         <Switch>
-          {/* <Route path="/register">
+          <Route path="/register">
             <Register 
-              onRegisterNewUser={handleRegisterNewUser}
+              // onRegisterNewUser={handleRegisterNewUser}
             />
           </Route>
-          <Route path="/login">
+          {/* <Route path="/login">
             <Login 
               onLogin={handleLogin}
             />
