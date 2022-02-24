@@ -21,4 +21,75 @@
 .register__input-container {
   display: flex;
   flex-direction: column;
+  margin-top: 24px;
+}
+
+.register__input-container:first-of-type {
+  margin-top: 0;
+}
+
+.register__input-placeholder {
+  font-weight: normal;
+  font-size: 10px;
+  color: #A0A0A0;
+  margin-bottom: 5px;
+}
+
+.register__input {
+  width: 396px;
+  border: none;
+  outline: none;
+  font-weight: normal;
+  font-size: 14px;
+  padding: 0 0 10px;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.register__error-container {
+  margin: 6px 0 0;
+  height: 12px;
+}
+
+.register__error-message {
+  margin: 0;
+  font-weight: normal;
+  font-size: 10px;
+  color: #EE3465;
+}
+
+.register__button-edit {
+  margin-top: 134px;
+  width: 100%;
+  height: 45px;
+  background-color: #FF6838;
+  border: none;
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #FFFFFF;
+  transition: opacity .3s;
+}
+
+.register__button-edit:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.register__login-container {
+  margin: 16px 0 0;
+  color: #A0A0A0;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.register__link {
+  color: #FF6838;
+  font-weight: normal;
+  font-size: 14px;
+  margin-left: 6px;
+  transition: opacity 0.3s;
+}
+
+.register__link:hover {
+  opacity: 0.6;
 }

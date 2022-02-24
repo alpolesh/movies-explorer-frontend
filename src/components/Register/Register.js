@@ -6,6 +6,7 @@ function Register() {
   const [registerName, setRegisterName] = useState('Андрей');
   const [registerEmail, setRegisterEmail] = useState('alpolesh@gmail.com');
   const [registerPassword, setRegisterPassword] = useState('234234');
+  const [isRegisterError, setIsRegisterError] = useState(false);
 
   function handleChangeRegisterName(e) {
     setRegisterName(e.target.value);
@@ -39,6 +40,9 @@ function Register() {
         <div className="register__input-container">
           <span className="register__input-placeholder">Пароль</span>
           <input type="password" className="register__input" value={registerPassword || ''} onChange={handleChangeRegisterPassword} />
+        </div>
+        <div className="register__error-container">
+          <p className="register__error-message">{isRegisterError ? 'Что-то пошло не так...' : ''} </p>
         </div>
         <button type="submit" className="register__button-edit">Зарегистрироваться</button>
       </form>
