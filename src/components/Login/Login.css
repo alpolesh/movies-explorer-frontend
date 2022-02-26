@@ -1,7 +1,6 @@
-.register {
+.login {
   padding: 52px 0 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
