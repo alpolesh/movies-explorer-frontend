@@ -14,10 +14,6 @@ function Main() {
         <Techs />
         <AboutMe />
         <Portfolio />
-        {/* <AboutProject />
-        <Techs />
-        <AboutMe />
-        <Portfolio /> */}
       </main>
   )
 }
