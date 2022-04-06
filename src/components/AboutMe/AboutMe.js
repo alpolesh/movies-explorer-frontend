@@ -10,11 +10,13 @@ function AboutMe() {
           <p className="about-me__data-prof">Фронтенд-разработчик, 29 лет</p>
           <p className="about-me__data-description">Я родился и живу в Минске, закончил стротельный факультет БНТУ. С 2016 года работаю в компании «IMC Planungsgesellschaft» инженером-проектировщиком.</p>
           <ul className="about-me__data-contacts">
-            <li className="about-me__link">Facebook</li>
+            <li className="about-me__link"><a href="https://www.facebook.com/andrey.poleschuck" target="_blank" rel="noreferrer">Facebook</a></li>
             <li className="about-me__link"><a href="https://github.com/alpolesh" target="_blank" rel="noreferrer">Github</a></li>
           </ul>
         </div>
-        <img className="about-me__photo" src={myPhoto} alt="фото автора" />
+        <div className="about-me__photo-container">
+          <img className="about-me__photo" src={myPhoto} alt="фото автора" />
+        </div>
       </div>
     </section>
   )

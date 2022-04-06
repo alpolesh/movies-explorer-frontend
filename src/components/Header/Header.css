@@ -22,3 +22,9 @@
   height: 38px;
   width: 38px;
 }
+
+@media screen and (max-width: 1279px) {
+  .header {
+    padding: 0 30px;
+  }
+}

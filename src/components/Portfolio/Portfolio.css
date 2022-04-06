@@ -47,3 +47,13 @@
 .portfolio__webpage-link:hover {
   opacity: 0.6;
 }
+
+@media screen and (max-width: 1279px) {
+  .portfolio {
+    padding: 0 50px 90px;
+  }
+
+  .portfolio__webpage-name {
+    font-size: 28px;
+  }
+}
