@@ -1,6 +1,5 @@
 .movies {
-  margin-top: 9px;
-  padding: 70px 70px 55px;
+  padding: 79px 70px 71px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,5 +12,11 @@
   gap: 32px 20px;
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
+@media screen and (max-width: 1279px) {
+  .movies {
+    padding: 70px 30px 80px;
+  }
+}
