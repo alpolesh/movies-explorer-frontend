@@ -89,7 +89,7 @@
     background-color: #000000;
   }
 
-  .header__navigation {
+  .header__navigation_menu_hamburger {
     /* display: none; */
     padding: 159px 0 92px;
     z-index: 2;
@@ -102,7 +102,7 @@
     right: -520px;
     background-color: #FFFFFF;
     animation-name: burger-open;
-    animation-duration: 1s;
+    animation-duration: .5s;
     animation-fill-mode: forwards;
   }
 
@@ -111,23 +111,30 @@
     100% {right: 0px;}
   }
 
-  .header__link {
+  .header__navigation-close-icon {
+    position: fixed;
+    z-index: 3;
+    right: 30px;
+    top: 30px;
+  }
+
+  .header__link_menu_hamburger {
     margin: 0;
     font-size: 18px;
     font-weight: 500;
   }
 
-  .header__link-account {
+  .header__link-account_menu_hamburger {
     margin-left: 0;
     font-weight: 500;
   }
 
-  .header__link-container {
+  .header__link-container_menu_hamburger {
     margin-bottom: 22px;
     border-bottom: 2px solid #FFFFFF;
   }
 
-  .header__link-container:last-child {
+  .header__link-container_menu_hamburger:last-child {
     margin-top: auto;
     margin-bottom: 207px;
   }

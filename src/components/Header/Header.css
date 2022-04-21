@@ -27,4 +27,8 @@
   .header {
     padding: 0 30px;
   }
+
+  .header_without-paddings {
+    padding: 0;
+  }
 }

@@ -1,6 +1,6 @@
-import HeaderAuth from '../HeaderAuth/HeaderAuth';
-import HeaderContent from '../HeaderContent/HeaderContent';
-import HeaderMain from '../HeaderMain/HeaderMain';
+import HeaderAuth from './HeaderAuth';
+import HeaderContent from './HeaderContent';
+import HeaderMain from './HeaderMain';
 
 function Header() {
   return (
