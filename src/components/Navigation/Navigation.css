@@ -134,6 +134,10 @@
     border-bottom: 2px solid #FFFFFF;
   }
 
+  .header__link-container_active {
+    border-bottom: 2px solid #000000;
+  }
+
   .header__link-container_menu_hamburger:last-child {
     margin-top: auto;
     margin-bottom: 207px;
