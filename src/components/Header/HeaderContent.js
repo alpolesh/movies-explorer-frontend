@@ -1,6 +1,7 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import logo from "../../images/header__logo.svg";
 import Navigation from "../Navigation/Navigation";
+import { routes } from '../../constants/constants.js';
 
 function HeaderContent() {
   const location = useLocation();
@@ -9,7 +10,7 @@ function HeaderContent() {
     isContentPath && 
       (<header className="header">
         <div className="header__header-container">
-          <img className="header__logo" src={logo} alt="logo"/>
+          <Link to={routes.main}><img className="header__logo" src={logo} alt="logo"/></Link>
           <Navigation />
         </div>
       </header>) 
@@ -17,3 +18,4 @@ function HeaderContent() {
 }
 
 export default HeaderContent;
+

@@ -1,5 +1,6 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import logo from "../../images/header__logo.svg";
+import { routes } from '../../constants/constants.js';
 
 function HeaderAuth() {
   const location = useLocation();
@@ -8,7 +9,7 @@ function HeaderAuth() {
     isContentPath && 
       (<header className="header header_without-paddings">
         <div className="header__header-container">
-          <img className="header__logo" src={logo} alt="logo"/>
+          <Link to={routes.main}><img className="header__logo" src={logo} alt="logo"/></Link>
         </div>
       </header>) 
   )

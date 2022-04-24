@@ -9,7 +9,6 @@ function NavigationHamburger() {
   const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] = useState(false);
   const changeHamburgerMenuState = () => { setIsHamburgerMenuOpen(!isHamburgerMenuOpen) }
   let location = useLocation();
-  console.log(location);
   return (
     isHamburgerMenuOpen 
     ?

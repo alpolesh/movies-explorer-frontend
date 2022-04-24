@@ -77,3 +77,27 @@
     margin: 22px 0 92px;
   }
 }
+
+@media screen and (max-width: 767px) {
+  .promo__image {
+    width: 210px;
+    height: 206px;
+  }
+
+  .promo {
+    padding: 70px 14px 30px;
+  }
+
+  .promo__image-container {
+    margin-bottom: 44px;
+  }
+
+  .promo__title {
+    font-size: 30px;
+    line-height: 1.27;
+  }
+
+  .promo__description {
+    margin: 24px 0 80px;
+  }
+}
