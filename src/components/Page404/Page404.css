@@ -20,7 +20,7 @@
 
 .page-404__link {
   position: absolute;
-  bottom: 60px;
+  bottom: 10%;
   color: #FF6838;
   font-weight: normal;
   font-size: 14px;
@@ -34,6 +34,21 @@
 
 @media screen and (max-width: 1279px) {
   .page-404__link {
-    bottom: 222px;
+    bottom: 15%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .page-404__link {
+    bottom: 5%;
+  }
+
+  .page-404__title {
+    font-size: 80px;
+  }
+
+  .page-404__description {
+    margin: 10px 0 0;
+    font-size: 12px;
   }
 }

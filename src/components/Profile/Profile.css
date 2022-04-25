@@ -84,3 +84,17 @@
   cursor: pointer;
   opacity: 0.6;
 }
+
+@media screen and (max-width: 767px) {
+  .profile {
+    padding: 70px 30px 40px;
+  }
+
+  .profile__form {
+    margin-top: 80px;
+  }
+
+  .profile__input-container {
+    width: 260px;
+  }
+}

@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import { routes } from '../../constants/constants.js'
 import './App.css';
 import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
@@ -44,7 +43,6 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
-      <Footer />
     </div>
   );
 }
