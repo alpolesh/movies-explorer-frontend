@@ -53,7 +53,8 @@ const cardsArr = [
   }
 ]
 
-function MoviesCardList() {
+function MoviesCardList(props) {
+  const parrentComponent = props.parrentComponent;
   return (
     <section className="movies">
       <ul className="movies__card-list">
@@ -64,6 +65,7 @@ function MoviesCardList() {
             duration={card.duration}
             imageUrl={card.url}
             trailerLink={card.trailerLink}
+            parrentComponent={parrentComponent}
           />
         ))}
       </ul>

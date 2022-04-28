@@ -11,7 +11,7 @@ function Movies() {
     <>
       <Header />
       <SearchForm />
-      {isMoviesLoaded ? <MoviesCardList /> : <Preloader />}
+      {isMoviesLoaded ? <MoviesCardList parrentComponent='Movies'/> : <Preloader />}
       <div className="button-more-container">
         <button className="button-more">Ещё</button>
       </div>
