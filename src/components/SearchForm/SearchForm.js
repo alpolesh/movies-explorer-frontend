@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import searchIcon from '../../images/search__icon.png';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm() {
+function SearchForm(props) {
   const [movieTitle, setMovieTitle] = useState('');
 
   function handleChangeMovieTitle(e) {
@@ -11,6 +11,7 @@ function SearchForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    props.onSearchMovieClick(movieTitle);
   }
 
   useEffect(() => {

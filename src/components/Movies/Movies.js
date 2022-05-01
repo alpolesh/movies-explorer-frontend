@@ -4,17 +4,42 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from '../Preloader/Preloader';
 import SearchForm from "../SearchForm/SearchForm";
 import Footer from '../Footer/Footer';
+import moviesApi from '../../utils/moviesApi';
 
 function Movies() {
-  const [isMoviesLoaded, setIsMoviesLoaded] = useState(true);
+  const [isRequestFetching, setIsRequestFetching] = useState(false);
+
+  function handleSearchMovieClick(inputsData) {
+    setIsRequestFetching(true);
+    moviesApi.getInitialMovies()
+    .then((res) => {
+      localStorage.setItem('moviesFromBeatfilm', JSON.stringify(res));
+      console.log(JSON.parse(localStorage.getItem('moviesFromBeatfilm')))
+      } 
+    )
+    .then(() => {
+      setIsRequestFetching(false);
+    })
+    .catch((err) => console.log(err));
+  }
+
   return (
     <>
       <Header />
-      <SearchForm />
-      {isMoviesLoaded ? <MoviesCardList parrentComponent='Movies'/> : <Preloader />}
-      <div className="button-more-container">
-        <button className="button-more">Ещё</button>
-      </div>
+      <SearchForm 
+        onSearchMovieClick={handleSearchMovieClick}
+      />
+      {isRequestFetching 
+      ? 
+      <Preloader /> 
+      : 
+      <>
+        <MoviesCardList parrentComponent='Movies'/>
+        <div className="button-more-container">
+          <button className="button-more">Ещё</button>
+        </div>
+      </>
+      }
       <Footer />
     </>
   )
