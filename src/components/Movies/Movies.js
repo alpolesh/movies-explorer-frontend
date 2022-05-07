@@ -5,6 +5,7 @@ import Preloader from '../Preloader/Preloader';
 import SearchForm from "../SearchForm/SearchForm";
 import Footer from '../Footer/Footer';
 import moviesApi from '../../utils/moviesApi';
+import {filterCardsAccToInput} from '../../utils/utils';
 
 function Movies() {
   const [isRequestFetching, setIsRequestFetching] = useState(false);
@@ -14,7 +15,9 @@ function Movies() {
     moviesApi.getInitialMovies()
     .then((res) => {
       localStorage.setItem('moviesFromBeatfilm', JSON.stringify(res));
-      console.log(JSON.parse(localStorage.getItem('moviesFromBeatfilm')))
+      console.log(JSON.parse(localStorage.getItem('moviesFromBeatfilm')));
+      const moviesArr = JSON.parse(localStorage.getItem('moviesFromBeatfilm'));
+      filterCardsAccToInput(inputsData, moviesArr);
       } 
     )
     .then(() => {
