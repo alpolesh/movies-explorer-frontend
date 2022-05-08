@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
-function FilterCheckbox() {
-  const [shortFilmIsChecked, setShortFilmIsChecked] = useState(false);
+function FilterCheckbox(props) {
+  const {searchShortMovieIsChecked, setSearchShortMovieIsChecked} = props;
 
   function handleChangeShortFilmCheckbox(e) {
-    setShortFilmIsChecked(!shortFilmIsChecked);
+    setSearchShortMovieIsChecked(!searchShortMovieIsChecked);
   }
-
-  useEffect(() => {
-    setShortFilmIsChecked(false);
-  }, [])
 
   return (
     <div className="search__short-movies-filter">
       <label className="switch">
-        <input type="checkbox" className="switch__checkbox" checked={shortFilmIsChecked} onChange={handleChangeShortFilmCheckbox} />
+        <input type="checkbox" className="switch__checkbox" checked={searchShortMovieIsChecked} onChange={handleChangeShortFilmCheckbox} />
         <span className="switch__slider"></span>
       </label>
       <span className="search__caption">Короткометражки</span>

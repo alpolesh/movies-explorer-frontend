@@ -1,69 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-const cardsArr = [
-  {
-    "id": 1,
-    "nameRu": "33 слова о дизайне",
-    "duration": 61,
-    "url": "/uploads/stones_in_exile_b2f1b8f4b7.jpeg",
-    "trailerLink": "https://www.youtube.com/watch?v=UXcqcdYABFw",
-  },
-  {
-    "id": 2,
-    "nameRu": "33 слова о дизайне",
-    "duration": 61,
-    "url": "/uploads/all_tommoros_parties_33a125248d.jpeg",
-    "trailerLink": "https://www.youtube.com/watch?v=UXcqcdYABFw",
-  },
-  {
-    "id": 3,
-    "nameRu": "33 слова о дизайне",
-    "duration": 61,
-    "url": "/uploads/blur_a43fcf463d.jpeg",
-    "trailerLink": "https://www.youtube.com/watch?v=UXcqcdYABFw",
-  },
-  {
-    "id": 4,
-    "nameRu": "33 слова о дизайне",
-    "duration": 61,
-    "url": "/uploads/zagruzhennoe_113f557116.jpeg",
-    "trailerLink": "https://www.youtube.com/watch?v=UXcqcdYABFw",
-  },
-  {
-    "id": 5,
-    "nameRu": "33 слова о дизайне",
-    "duration": 61,
-    "url": "/uploads/taqwacore2_2f487d2e74.jpeg",
-    "trailerLink": "https://www.youtube.com/watch?v=UXcqcdYABFw",
-  },
-  {
-    "id": 6,
-    "nameRu": "33 слова о дизайне",
-    "duration": 61,
-    "url": "/uploads/posters_came_from_the_walls_2009_001_posters_180fe1a19f.jpeg",
-    "trailerLink": "https://www.youtube.com/watch?v=UXcqcdYABFw",
-  },
-  {
-    "id": 7,
-    "nameRu": "33 слова о дизайне",
-    "duration": 61,
-    "url": "/uploads/images_5bfcbf36e6.jpeg",
-    "trailerLink": "https://www.youtube.com/watch?v=UXcqcdYABFw",
-  }
-]
-
 function MoviesCardList(props) {
-  const parrentComponent = props.parrentComponent;
+  const {parrentComponent, moviesCardsArr} = props;
   return (
     <section className="movies">
       <ul className="movies__card-list">
-        {cardsArr.map((card) => (
+        {moviesCardsArr.map((card) => (
           <MoviesCard 
             key={card.id}
-            title={card.nameRu}
+            title={card.nameRU}
             duration={card.duration}
-            imageUrl={card.url}
+            imageUrl={card.image.url}
             trailerLink={card.trailerLink}
             parrentComponent={parrentComponent}
           />
