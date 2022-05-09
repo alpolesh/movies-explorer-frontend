@@ -18,7 +18,7 @@ function SearchForm(props) {
     <section className="search">
       <form name="search-movie" onSubmit={handleSubmit} className="search__form">
         <div className="search__container">
-          <input type="text" value={searchMovieTitle || ''} onChange={handleChangeMovieTitle} id="movie-title-input" className="search__input" name="search-input" placeholder="Фильм" minLength="1" maxLength="50" required/>
+          <input type="text" value={searchMovieTitle || ''} onChange={handleChangeMovieTitle} id="movie-title-input" className="search__input" name="search-input" placeholder="Фильм" minLength="1" maxLength="50"/>
           <button type="submit" className="search__submit"><img className="search__icon" src={searchIcon} alt="search icon" /></button>
         </div>
       </form>

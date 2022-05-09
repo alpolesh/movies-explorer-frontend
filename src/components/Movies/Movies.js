@@ -18,8 +18,32 @@ function Movies() {
   const [filteredMovies, setFilteredMovies] = useState(() => {
     return localStorage.getItem('moviesFromBeatfilm') ? filterCardsAccToInput(searchMovieTitle, JSON.parse(localStorage.getItem('moviesFromBeatfilm'))) : []
   });
+  const [errorFromBeatFilm, setErrorFromBeatFilm] = useState(false);
+  const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);
+  const [moviesArrForRender, setMoviesArrForRender] = useState(filteredMovies.slice(0, calculateNumberOfCardsWithResolution()));
+  
+
+  const updateDimension = () => {
+    setWidthDisplay(window.innerWidth);
+  }
+
+  function calculateNumberOfCardsWithResolution() {
+    if (widthDisplay >= 1280) return 12;
+    else if (widthDisplay >= 768) return 8;
+    else if (widthDisplay >= 320) return 5;
+  }
+
+  function createMoviesArray() {
+    setMoviesArrForRender(moviesArrForRender.concat(filteredMovies.slice(moviesArrForRender.length, moviesArrForRender.length + calculateNumberOfCardsWithResolution())))
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", updateDimension);
+    return () => window.removeEventListener("resize", updateDimension);
+  }, [widthDisplay]);
 
   function handleSearchMovieClick(inputsData) {
+    setErrorFromBeatFilm(false);
     localStorage.setItem('searchMovieTitle', JSON.stringify(searchMovieTitle));
     localStorage.setItem('searchShortMovieIsChecked', JSON.stringify(searchShortMovieIsChecked));
     if (localStorage.getItem('moviesFromBeatfilm')) {
@@ -40,6 +64,7 @@ function Movies() {
       .catch((err) => {
         console.log(err);
         setIsRequestFetching(false);
+        setErrorFromBeatFilm(true);
       })
     }
   }
@@ -61,10 +86,12 @@ function Movies() {
       <>
         <MoviesCardList 
           parrentComponent='Movies'
-          moviesCardsArr={filteredMovies}
+          filteredMoviesArr={filteredMovies}
+          moviesArrForRender={moviesArrForRender}
+          errorFromBeatFilm={errorFromBeatFilm}
         />
         <div className="button-more-container">
-          <button className="button-more">Ещё</button>
+          <button className="button-more" onClick={createMoviesArray}>Ещё</button>
         </div>
       </>
       }

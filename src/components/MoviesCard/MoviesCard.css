@@ -1,6 +1,6 @@
 .movies__card-container {
   width: 270px;
-  max-height: 218px;
+  /* max-height: 218px; */
   display: flex;
   flex-direction: column;
   background-color: #FDFDFD;
@@ -83,7 +83,7 @@
 @media screen and (max-width: 1279px) {
   .movies__card-container {
     width: 339px;
-    max-height: 257px;
+    /* max-height: 257px; */
   }
 
   .movies__image {
@@ -94,7 +94,7 @@
 @media screen and (max-width: 767px) {
   .movies__card-container {
     width: 300px;
-    max-height: 235px;
+    /* max-height: 235px; */
   }
 
   .movies__image {

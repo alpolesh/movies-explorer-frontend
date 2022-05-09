@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList(props) {
-  const {parrentComponent, moviesCardsArr} = props;
+  const {parrentComponent, filteredMoviesArr, moviesArrForRender, errorFromBeatFilm} = props;
+  
+
   return (
     <section className="movies">
       <ul className="movies__card-list">
-        {moviesCardsArr.map((card) => (
+        {filteredMoviesArr.length !==0 
+        ?
+        moviesArrForRender.map((card) => (
           <MoviesCard 
             key={card.id}
             title={card.nameRU}
@@ -15,7 +19,16 @@ function MoviesCardList(props) {
             trailerLink={card.trailerLink}
             parrentComponent={parrentComponent}
           />
-        ))}
+        ))
+        :
+        <p className="movies__no-movies">
+          {errorFromBeatFilm 
+          ? 
+          'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' 
+          : 
+          'Ничего не найдено'}
+        </p>
+        }
       </ul>
     </section>
   )
