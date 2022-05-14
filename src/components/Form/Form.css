@@ -68,6 +68,15 @@
   opacity: 0.6;
 }
 
+.form__button-edit_inactive {
+  background-color: #808080;
+}
+
+.form__button-edit_inactive:hover {
+  cursor: not-allowed;
+  opacity: 1;
+}
+
 .form__link-container {
   margin: 16px 0 0;
   color: #A0A0A0;

@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
 import Form from '../Form/Form';
+import useForm from '../useForm/useForm';
+import { validateRegisterForm } from '../../utils/utils';
+import mainApi from '../../utils/MainApi';
 
-function Register() {
-  const [registerName, setRegisterName] = useState('Андрей');
-  const [registerEmail, setRegisterEmail] = useState('alpolesh@gmail.com');
-  const [registerPassword, setRegisterPassword] = useState('234234');
+function Register({ onRegister }) {
+  // function register(inputsData) {
+  //   console.log('No errors, submit callback called!');
+  //   mainApi.signUp(inputsData.name, inputsData.email, inputsData.password) 
+  //   .then((result) => {
+  //     // setIsSuccessfullRegistration(true);
+  //     console.log(result)
+  //     }
+  //   )
+  //   .catch((err) => {
+  //     console.log(err);
+  //     // setIsSuccessfullRegistration(false);
+  //   })
+  // }
 
-  function handleChangeRegisterName(e) {
-    setRegisterName(e.target.value);
-  }
-
-  function handleChangeRegisterEmail(e) {
-    setRegisterEmail(e.target.value);
-  }
-
-  function handleChangeRegisterPassword(e) {
-    setRegisterPassword(e.target.value);
-  }
+  const {
+    values,
+    errors,
+    handleChange,
+    handleSubmit,
+    isInputed
+  } = useForm(onRegister, validateRegisterForm);
 
   return (
     <section className="register">
@@ -26,18 +35,36 @@ function Register() {
         linkTo='/login'
         linkParagraph='Уже зарегистрированы?'
         linkSpan='Войти'
+        handleSubmit={handleSubmit}
+        errors={errors}
+        isInputed={isInputed}
       >
         <div className="form__input-container">
           <span className="form__input-placeholder">Имя</span>
-          <input type="text" className="form__input" value={registerName || ''} onChange={handleChangeRegisterName} minLength="2" maxLength="50" required />
+          <input type="text" className="form__input" name="name" value={values.name || ''} onChange={handleChange} required />
+          {errors.name && (
+            <div className="form__error-container">
+              <p className="form__error-message">{errors.name} </p>
+            </div>
+          )}
         </div>
         <div className="form__input-container">
           <span className="form__input-placeholder">E-mail</span>
-          <input type="email" className="form__input" value={registerEmail || ''} onChange={handleChangeRegisterEmail} required />
+          <input type="email" className="form__input" name="email" value={values.email || ''} onChange={handleChange} required />
+          {errors.email && (
+            <div className="form__error-container">
+              <p className="form__error-message">{errors.email} </p>
+            </div>
+          )}
         </div>
         <div className="form__input-container">
           <span className="form__input-placeholder">Пароль</span>
-          <input type="password" className="form__input" value={registerPassword || ''} onChange={handleChangeRegisterPassword} minLength="4" required />
+          <input type="password" className="form__input" name="password" value={values.password || ''} onChange={handleChange} required />
+          {errors.password && (
+            <div className="form__error-container">
+              <p className="form__error-message">{errors.password} </p>
+            </div>
+          )}
         </div>
       </Form>
     </section>

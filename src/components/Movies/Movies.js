@@ -4,7 +4,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from '../Preloader/Preloader';
 import SearchForm from "../SearchForm/SearchForm";
 import Footer from '../Footer/Footer';
-import moviesApi from '../../utils/moviesApi';
+import moviesApi from '../../utils/MoviesApi';
 import {filterCardsAccToInput} from '../../utils/utils';
 
 function Movies() {
@@ -15,16 +15,21 @@ function Movies() {
   const [searchShortMovieIsChecked, setSearchShortMovieIsChecked] = useState(() => {
     return localStorage.getItem('searchShortMovieIsChecked') ? JSON.parse(localStorage.getItem('searchShortMovieIsChecked')) : false
   });
-  const [filteredMovies, setFilteredMovies] = useState(() => {
-    return localStorage.getItem('moviesFromBeatfilm') ? filterCardsAccToInput(searchMovieTitle, JSON.parse(localStorage.getItem('moviesFromBeatfilm'))) : []
-  });
   const [errorFromBeatFilm, setErrorFromBeatFilm] = useState(false);
   const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);
+  const [isSearchedPreviously, setIsSearchedPreviously] = useState(false);
+
+  const [filteredMovies, setFilteredMovies] = useState(() => {
+    return localStorage.getItem('moviesFromBeatfilm') ? filterCardsAccToInput(searchMovieTitle, JSON.parse(localStorage.getItem('moviesFromBeatfilm'))) : [];
+  })
+  
+  // let filteredMovies = localStorage.getItem('moviesFromBeatfilm') ? filterCardsAccToInput(searchMovieTitle, JSON.parse(localStorage.getItem('moviesFromBeatfilm'))) : [];
+
   const [moviesArrForRender, setMoviesArrForRender] = useState(filteredMovies.slice(0, calculateNumberOfCardsWithResolution()));
   
 
   const updateDimension = () => {
-    setWidthDisplay(window.innerWidth);
+    setTimeout(function(){setWidthDisplay(window.innerWidth)}, 1000);
   }
 
   function calculateNumberOfCardsWithResolution() {
@@ -33,16 +38,21 @@ function Movies() {
     else if (widthDisplay >= 320) return 5;
   }
 
-  function createMoviesArray() {
+  function handleButtonMoreClick() {
     setMoviesArrForRender(moviesArrForRender.concat(filteredMovies.slice(moviesArrForRender.length, moviesArrForRender.length + calculateNumberOfCardsWithResolution())))
   }
 
   useEffect(() => {
     window.addEventListener("resize", updateDimension);
     return () => window.removeEventListener("resize", updateDimension);
-  }, [widthDisplay]);
+  });
+
+  useEffect(() => {
+    setMoviesArrForRender(filteredMovies.slice(0, calculateNumberOfCardsWithResolution()));
+  }, [filteredMovies])
 
   function handleSearchMovieClick(inputsData) {
+    setIsSearchedPreviously(true);
     setErrorFromBeatFilm(false);
     localStorage.setItem('searchMovieTitle', JSON.stringify(searchMovieTitle));
     localStorage.setItem('searchShortMovieIsChecked', JSON.stringify(searchShortMovieIsChecked));
@@ -86,13 +96,18 @@ function Movies() {
       <>
         <MoviesCardList 
           parrentComponent='Movies'
-          filteredMoviesArr={filteredMovies}
+          isSearchedPreviously={isSearchedPreviously}
           moviesArrForRender={moviesArrForRender}
           errorFromBeatFilm={errorFromBeatFilm}
         />
+        {filteredMovies.length !== moviesArrForRender.length
+        ?
         <div className="button-more-container">
-          <button className="button-more" onClick={createMoviesArray}>Ещё</button>
+          <button className="button-more" onClick={handleButtonMoreClick}>Ещё</button>
         </div>
+        :
+        ''
+        }
       </>
       }
       <Footer />
