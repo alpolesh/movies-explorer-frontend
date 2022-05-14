@@ -1,0 +1,36 @@
+.movies {
+  padding: 79px 70px 71px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.movies__card-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px 32px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (max-width: 1279px) {
+  .movies {
+    padding: 70px 30px 80px;
+  }
+
+  .movies__card-list {
+    gap: 30px 36px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .movies {
+    padding: 40px 10px 80px;
+  }
+
+  .movies__card-list {
+    gap: 20px 30px;
+  }
+}

@@ -1,0 +1,152 @@
+.about-me {
+  padding: 110px 70px 100px;
+}
+
+.about-me__title {
+  margin: 0;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 27px;
+  border-bottom: 1px solid #000000;
+  padding-bottom: 23px;
+}
+
+.about-me__info-container {
+  margin-top: 66px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-me__data {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin-right: 49px;
+}
+
+.about-me__data-header {
+  margin: 0;
+  font-weight: normal;
+  font-size: 50px;
+  line-height: 58px;
+}
+
+.about-me__data-prof {
+  margin: 18px 0 26px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.about-me__data-description {
+  margin: 0;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.about-me__data-contacts {
+  list-style-type: none;
+  margin: 99px 0 0;
+  padding: 0;
+  display: flex;
+}
+
+.about-me__link {
+  margin-right: 20px;
+}
+
+.about-me__link a {
+  text-decoration: none;
+  transition: opacity .2s;
+  font-size: 14px;
+}
+
+.about-me__link a:hover {
+  opacity: 0.6;
+}
+
+.about-me__photo-container {
+  max-width: 270px;
+}
+
+.about-me__photo {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 1279px) {
+  .about-me {
+    padding: 90px 50px;
+  }
+
+  .about-me__data-header {
+    font-size: 40px;
+  }
+
+  .about-me__data-prof {
+    margin: 16px 0 20px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about-me__data-description {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about-me__data-contacts {
+    margin: 87px 0 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .about-me {
+    padding: 70px 14px;
+  }
+
+  .about-me__title {
+    font-size: 18px;
+    padding-bottom: 28px;
+  }
+
+  .about-me__info-container {
+    margin-top: 60px;
+    flex-direction: column-reverse;
+  }
+
+  .about-me__photo-container {
+    max-width: 292px;
+    align-self: center;
+  }
+
+  .about-me__data {
+    max-width: 600px;
+    margin-right: 0;
+    margin-top: 40px;
+  }
+
+  .about-me__data-header {
+    font-size: 30px;
+  }
+
+  .about-me__data-prof {
+    margin: 20px 0 20px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about-me__data-description {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about-me__data-contacts {
+    margin: 40px 0 0;
+  }
+
+  .about-me__link {
+    margin-right: 26px;
+  }
+}
