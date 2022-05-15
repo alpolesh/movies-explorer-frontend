@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from '../Form/Form';
 import useForm from '../useForm/useForm';
 import { validateLoginForm } from '../../utils/utils';
 
-function Login({ onLogin }) {
+function Login({ onLogin, errorFromServer, setErrorFromServer }) {
   const {
     values,
     errors,
@@ -11,6 +11,10 @@ function Login({ onLogin }) {
     handleSubmit,
     isInputed
   } = useForm(onLogin, validateLoginForm);
+
+  useEffect(() => {
+    setErrorFromServer('');
+  }, [])
 
   return (
     <section className="login">
@@ -23,6 +27,7 @@ function Login({ onLogin }) {
         handleSubmit={handleSubmit}
         errors={errors}
         isInputed={isInputed}
+        errorFromServer={errorFromServer}
       >
         <div className="form__input-container">
           <span className="form__input-placeholder">E-mail</span>

@@ -19,9 +19,9 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState(localStorage.getItem('jwt'))
+  const [errorFromServer, setErrorFromServer] = useState('');
 
   function handleRegister(inputsData) {
-    console.log('No errors, submit callback called!');
     mainApi.signUp(inputsData.name, inputsData.email, inputsData.password) 
     .then((result) => {
       console.log(result);
@@ -30,11 +30,11 @@ function App() {
     )
     .catch((err) => {
       console.log(err);
+      setErrorFromServer(err);
     })
   }
   
   function handleLogin(inputsData) {
-    console.log('No errors, submit callback called!');
     mainApi.signIn(inputsData.email, inputsData.password) 
     .then((result) => {
       console.log(result);
@@ -49,6 +49,7 @@ function App() {
     )
     .catch((err) => {
       console.log(err);
+      setErrorFromServer(err);
     })
   }
 
@@ -62,6 +63,8 @@ function App() {
               ? 
               <Register 
                 onRegister={handleRegister}
+                errorFromServer={errorFromServer}
+                setErrorFromServer={setErrorFromServer}
               />
               :
               <Redirect to={routes.movies} />
@@ -72,6 +75,8 @@ function App() {
               ?
               <Login 
                 onLogin={handleLogin}
+                errorFromServer={errorFromServer}
+                setErrorFromServer={setErrorFromServer}
               />
               :
               <Redirect to={routes.movies} />

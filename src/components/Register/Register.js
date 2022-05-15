@@ -1,24 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Form from '../Form/Form';
 import useForm from '../useForm/useForm';
 import { validateRegisterForm } from '../../utils/utils';
 import mainApi from '../../utils/MainApi';
 
-function Register({ onRegister }) {
-  // function register(inputsData) {
-  //   console.log('No errors, submit callback called!');
-  //   mainApi.signUp(inputsData.name, inputsData.email, inputsData.password) 
-  //   .then((result) => {
-  //     // setIsSuccessfullRegistration(true);
-  //     console.log(result)
-  //     }
-  //   )
-  //   .catch((err) => {
-  //     console.log(err);
-  //     // setIsSuccessfullRegistration(false);
-  //   })
-  // }
-
+function Register({ onRegister, errorFromServer, setErrorFromServer }) {
   const {
     values,
     errors,
@@ -26,6 +12,10 @@ function Register({ onRegister }) {
     handleSubmit,
     isInputed
   } = useForm(onRegister, validateRegisterForm);
+
+  useEffect(() => {
+    setErrorFromServer('');
+  }, [])
 
   return (
     <section className="register">
@@ -38,6 +28,7 @@ function Register({ onRegister }) {
         handleSubmit={handleSubmit}
         errors={errors}
         isInputed={isInputed}
+        errorFromServer={errorFromServer}
       >
         <div className="form__input-container">
           <span className="form__input-placeholder">Имя</span>
