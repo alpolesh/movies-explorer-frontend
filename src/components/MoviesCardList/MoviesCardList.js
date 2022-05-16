@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList(props) {
-  const {parrentComponent, isSearchedPreviously, moviesArrForRender, errorFromBeatFilm} = props;
+  const {parrentComponent, isSearchedPreviously, moviesArrForRender, errorFromBeatFilm, moviesByCurrentUser} = props;
   
 
   return (
@@ -27,6 +27,7 @@ function MoviesCardList(props) {
             // imageUrl={card.image.url}
             // trailerLink={card.trailerLink}
             parrentComponent={parrentComponent}
+            moviesByCurrentUser={moviesByCurrentUser}
           />
         ))
         }

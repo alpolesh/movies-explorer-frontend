@@ -4,21 +4,38 @@ import mainApi from '../../utils/MainApi';
 
 function MoviesCard(props) {
   // const {title, duration, trailerLink, parrentComponent} = props;
-  const {cardData, parrentComponent} = props;
+  const {cardData, parrentComponent, moviesByCurrentUser} = props;
   const imageUrl = "https://api.nomoreparties.co" + cardData.image.url;
-  const [isMovieSaved, setIsMovieSaved] = useState(false);
+  const [movieId, setMovieId] = useState(() => {
+    return moviesByCurrentUser.find((item) => item.movieId === cardData.id) ? moviesByCurrentUser.find((item) => item.movieId === cardData.id)._id : null
+  });
+  const [isMovieSaved, setIsMovieSaved] = useState(() => {
+    return moviesByCurrentUser.find((item) => item.movieId === cardData.id) ? true : false
+  });
 
   const jwt = localStorage.getItem('jwt');
 
   function handleChangeMovieSaving(e) {
-    setIsMovieSaved(!isMovieSaved);
-    mainApi.createMovie(cardData, jwt)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    if (!isMovieSaved) {
+      setIsMovieSaved(!isMovieSaved);
+      mainApi.createMovie(cardData, jwt)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    } else {
+      setIsMovieSaved(!isMovieSaved);
+      mainApi.deleteMovie(movieId, jwt)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+    
   }
 
   return (

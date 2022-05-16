@@ -82,6 +82,30 @@ class MainApi {
       .then(res => this._getResponseData(res))       
     )    
   }
+
+  deleteMovie(_id, token) {
+    return (
+      fetch(`${this._baseUrl}/movies/${_id}`, {
+        method: 'DELETE',
+        headers: {
+          authorization: `Bearer ${token}`,
+        }
+      })
+      .then(res => this._getResponseData(res)) 
+    )    
+  }
+
+  getAllMoviesByCurrentUser(jwt) {
+    return (
+      fetch(`${this._baseUrl}/movies`, {
+        headers: {
+          'Content-Type': this._contentType,
+          'Authorization' : `Bearer ${jwt}`
+        }
+      })
+      .then(res => this._getResponseData(res))
+    )
+  }
 }
 
 const mainApi = new MainApi({
