@@ -50,6 +50,8 @@ function Movies() {
 
   useEffect(() => {
     setMoviesArrForRender(filteredMovies.slice(0, calculateNumberOfCardsWithResolution()));
+    setIsRequestFetching(true);
+    getAllMoviesByUser(jwt);
   }, [filteredMovies])
 
   function getAllMoviesByUser(jwt) {
@@ -70,7 +72,7 @@ function Movies() {
     setErrorFromBeatFilm(false);
     localStorage.setItem('searchMovieTitle', JSON.stringify(searchMovieTitle));
     localStorage.setItem('searchShortMovieIsChecked', JSON.stringify(searchShortMovieIsChecked));
-    getAllMoviesByUser(jwt);
+    // getAllMoviesByUser(jwt);
     if (localStorage.getItem('moviesFromBeatfilm')) {
       const moviesArr = JSON.parse(localStorage.getItem('moviesFromBeatfilm'));
       setFilteredMovies(filterCardsAccToInput(inputsData, moviesArr));

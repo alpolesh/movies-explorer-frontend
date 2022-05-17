@@ -13,7 +13,7 @@ function Form(props) {
         <div className="form__error-container">
           <p className="form__error-message">{errorFromServer}</p>
         </div>
-        <button type="submit" className={(Object.keys(errors).length === 0 && isInputed) ? `form__button-edit` : `form__button-edit form__button-edit_inactive`}>{buttonName}</button>
+        <button type="submit" className={(Object.keys(errors).length === 0 && isInputed) ? `form__button-edit` : `form__button-edit form__button-edit_inactive`} disabled={Object.keys(errors).length !== 0}>{buttonName}</button>
       </form>
       <p className="form__link-container">
         {linkParagraph}

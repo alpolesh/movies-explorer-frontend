@@ -106,6 +106,23 @@ class MainApi {
       .then(res => this._getResponseData(res))
     )
   }
+
+  updateProfile(userData, jwt) {
+    return (
+      fetch(`${this._baseUrl}/users/me`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': this._contentType,
+          'Authorization' : `Bearer ${jwt}`
+        },
+        body: JSON.stringify({
+          name: userData.name,
+          email: userData.email
+        })
+      })
+      .then(res => this._getResponseData(res))       
+    )    
+  }
 }
 
 const mainApi = new MainApi({
