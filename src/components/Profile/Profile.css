@@ -27,9 +27,9 @@
   border-bottom: 1px solid #E8E8E8;
 }
 
-.profile__input-container:last-of-type {
+.profile__input-container:nth-last-of-type(2) {
   border-bottom: none;
-  margin-bottom: 0;
+  margin-bottom: 220px;
 }
 
 .profile__input-placeholder {
@@ -55,8 +55,13 @@
   border-radius: 5px;
 }
 
+.profile__message-from-server {
+  font-size: 13px;
+  color: #EE3465;
+  text-align: center;
+}
+
 .profile__button-edit {
-  margin-top: 220px;
   font-weight: normal;
   font-size: 13px;
   align-self: center;

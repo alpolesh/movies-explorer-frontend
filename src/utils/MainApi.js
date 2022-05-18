@@ -115,10 +115,7 @@ class MainApi {
           'Content-Type': this._contentType,
           'Authorization' : `Bearer ${jwt}`
         },
-        body: JSON.stringify({
-          name: userData.name,
-          email: userData.email
-        })
+        body: JSON.stringify(userData)
       })
       .then(res => this._getResponseData(res))       
     )    

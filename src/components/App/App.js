@@ -38,9 +38,9 @@ function App() {
     mainApi.signIn(inputsData.email, inputsData.password) 
     .then((result) => {
       console.log(result);
-      setIsLoggedIn(true);
       localStorage.setItem('jwt', result.data.token);
       setToken(result.data.token);
+      setIsLoggedIn(true);
       mainApi.getUserData(result.data.token) 
       .then((result) => {
         setCurrentUser({name: result.name, email: result.email})
@@ -87,15 +87,16 @@ function App() {
               isLoggedIn={isLoggedIn}
               component={Movies}
             />
-            {/* <Route exact path={routes.movies}>
-              <Movies />
-            </Route> */}
             <Route exact path={routes.savedMovies}>
               <SavedMovies />
             </Route>
-            <Route exact path={routes.profile}>
-              <Profile />
-            </Route>
+            <ProtectedRoute 
+              exact path={routes.profile}
+              isLoggedIn={isLoggedIn}
+              component={Profile}
+              setCurrentUser={setCurrentUser}
+              setIsLoggedIn={setIsLoggedIn}
+            />
             <Route exact path={routes.main}>
               <Main />
             </Route>

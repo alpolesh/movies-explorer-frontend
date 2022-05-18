@@ -51,16 +51,12 @@ export function validateLoginForm(values) {
 
 export function validateProfileForm(values) {
   let errors = {};
-  if (!values.name) {
-    errors.name = 'Введите имя';
-  } else if (values.name.length > 30 || values.name.length < 2) {
+  if (values.name && (values.name.length > 30 || values.name.length < 2)) {
     errors.name = 'Имя должно быть от 2 до 30 символов';
-  } else if (!/^[a-zA-Zа-яА-Я -]+$/.test(values.name)) {
+  } else if (values.name && !/^[a-zA-Zа-яА-Я -]+$/.test(values.name)) {
     errors.name = 'Имя может содержать только латиницу, кириллицу, пробел или дефис';
   } 
-  if (!values.email) {
-    errors.email = 'Введите адрес электронной почты';
-  } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+  if (values.email && !/\S+@\S+\.\S+/.test(values.email)) {
     errors.email = 'Некорректный адрес электронной почты';
   }
   return errors;
