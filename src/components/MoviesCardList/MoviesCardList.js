@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList(props) {
-  const {parrentComponent, isSearchedPreviously, moviesArrForRender, errorFromBeatFilm, moviesByCurrentUser} = props;
-  
+  const {parrentComponent, isSearchedPreviously, moviesArrForRender, errorFromServer, moviesByCurrentUser, onDeleteMovie} = props;
 
   return (
     <section className="movies">
@@ -11,7 +10,7 @@ function MoviesCardList(props) {
         {isSearchedPreviously && moviesArrForRender.length === 0
         ?
         <p className="movies__no-movies">
-          {errorFromBeatFilm 
+          {errorFromServer 
           ? 
           'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' 
           : 
@@ -22,12 +21,9 @@ function MoviesCardList(props) {
           <MoviesCard 
             key={card.id}
             cardData={card}
-            // title={card.nameRU}
-            // duration={card.duration}
-            // imageUrl={card.image.url}
-            // trailerLink={card.trailerLink}
             parrentComponent={parrentComponent}
             moviesByCurrentUser={moviesByCurrentUser}
+            onDeleteMovie={onDeleteMovie}
           />
         ))
         }

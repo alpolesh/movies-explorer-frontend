@@ -54,7 +54,7 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={{currentUser, isLoggedIn}}>
       <div className="App">
         <BrowserRouter>
           <Switch>
@@ -87,9 +87,14 @@ function App() {
               isLoggedIn={isLoggedIn}
               component={Movies}
             />
-            <Route exact path={routes.savedMovies}>
+            <ProtectedRoute 
+              exact path={routes.savedMovies}
+              isLoggedIn={isLoggedIn}
+              component={SavedMovies}
+            />
+            {/* <Route exact path={routes.savedMovies}>
               <SavedMovies />
-            </Route>
+            </Route> */}
             <ProtectedRoute 
               exact path={routes.profile}
               isLoggedIn={isLoggedIn}

@@ -7,9 +7,11 @@ import Footer from '../Footer/Footer';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
 import {filterCardsAccToInput} from '../../utils/utils';
+import useNumberOfCardsWithResolution from '../../utils/useNumberOfCardsWithResolution';
 
 function Movies() {
   const jwt = localStorage.getItem('jwt');
+  const {calculateNumberOfCardsWithResolution} = useNumberOfCardsWithResolution();
 
   const [isRequestFetching, setIsRequestFetching] = useState(false);
   const [searchMovieTitle, setSearchMovieTitle] = useState(() => {
@@ -18,8 +20,7 @@ function Movies() {
   const [searchShortMovieIsChecked, setSearchShortMovieIsChecked] = useState(() => {
     return localStorage.getItem('searchShortMovieIsChecked') ? JSON.parse(localStorage.getItem('searchShortMovieIsChecked')) : false
   });
-  const [errorFromBeatFilm, setErrorFromBeatFilm] = useState(false);
-  const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);
+  const [errorFromServer, setErrorFromServer] = useState(false);
   const [isSearchedPreviously, setIsSearchedPreviously] = useState(false);
 
   const [filteredMovies, setFilteredMovies] = useState(() => {
@@ -29,24 +30,9 @@ function Movies() {
   const [moviesArrForRender, setMoviesArrForRender] = useState(filteredMovies.slice(0, calculateNumberOfCardsWithResolution()));
   const [moviesByCurrentUser, setMoviesByCurrentUser] = useState([]);
 
-  const updateDimension = () => {
-    setTimeout(function(){setWidthDisplay(window.innerWidth)}, 1000);
-  }
-
-  function calculateNumberOfCardsWithResolution() {
-    if (widthDisplay >= 1280) return 12;
-    else if (widthDisplay >= 768) return 8;
-    else if (widthDisplay >= 320) return 5;
-  }
-
   function handleButtonMoreClick() {
     setMoviesArrForRender(moviesArrForRender.concat(filteredMovies.slice(moviesArrForRender.length, moviesArrForRender.length + calculateNumberOfCardsWithResolution())))
   }
-
-  useEffect(() => {
-    window.addEventListener("resize", updateDimension);
-    return () => window.removeEventListener("resize", updateDimension);
-  });
 
   useEffect(() => {
     setMoviesArrForRender(filteredMovies.slice(0, calculateNumberOfCardsWithResolution()));
@@ -69,7 +55,7 @@ function Movies() {
 
   function handleSearchMovieClick(inputsData) {
     setIsSearchedPreviously(true);
-    setErrorFromBeatFilm(false);
+    setErrorFromServer(false);
     localStorage.setItem('searchMovieTitle', JSON.stringify(searchMovieTitle));
     localStorage.setItem('searchShortMovieIsChecked', JSON.stringify(searchShortMovieIsChecked));
     if (localStorage.getItem('moviesFromBeatfilm')) {
@@ -89,7 +75,7 @@ function Movies() {
       .catch((err) => {
         console.log(err);
         setIsRequestFetching(false);
-        setErrorFromBeatFilm(true);
+        setErrorFromServer(true);
       })
     }
   }
@@ -113,7 +99,7 @@ function Movies() {
           parrentComponent='Movies'
           isSearchedPreviously={isSearchedPreviously}
           moviesArrForRender={moviesArrForRender}
-          errorFromBeatFilm={errorFromBeatFilm}
+          errorFromServer={errorFromServer}
           moviesByCurrentUser={moviesByCurrentUser}
         />
         {filteredMovies.length !== moviesArrForRender.length

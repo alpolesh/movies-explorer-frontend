@@ -10,7 +10,7 @@ import { routes } from '../../constants/constants.js'
 
 
 function Profile({ setCurrentUser, setIsLoggedIn }) {
-  const currentUser = useContext(CurrentUserContext);
+  const {currentUser} = useContext(CurrentUserContext);
   const jwt = localStorage.getItem('jwt');
   const [messageFromServer, setMessageFromServer] = useState('');
   let history = useHistory();

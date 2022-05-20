@@ -4,7 +4,6 @@ import headerLinkIcon from '../../images/header__link-icon.png';
 import NavigationHamburger from './NavigationHamburger';
 import { routes } from '../../constants/constants.js';
 
-
 function NavigationOthers() {
   const [isHamburgerMenu, setIsHamburgerMenu] = useState(false);
   const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);

@@ -3,17 +3,23 @@ import deleteIcon from '../../images/header__navigation-close-icon.png';
 import mainApi from '../../utils/MainApi';
 
 function MoviesCard(props) {
-  // const {title, duration, trailerLink, parrentComponent} = props;
-  const {cardData, parrentComponent, moviesByCurrentUser} = props;
-  const imageUrl = "https://api.nomoreparties.co" + cardData.image.url;
-  const [movieId, setMovieId] = useState(() => {
-    return moviesByCurrentUser.find((item) => item.movieId === cardData.id) ? moviesByCurrentUser.find((item) => item.movieId === cardData.id)._id : null
-  });
+  const jwt = localStorage.getItem('jwt');
+  const {cardData, parrentComponent, moviesByCurrentUser, onDeleteMovie} = props;
+  const imageUrl = parrentComponent === `Movies` ? "https://api.nomoreparties.co" + cardData.image.url : cardData.image;
+  // const [movieId, setMovieId] = useState(() => {
+  //   return moviesByCurrentUser.find((item) => item.movieId === cardData.id) ? moviesByCurrentUser.find((item) => item.movieId === cardData.id)._id : null
+  // });
   const [isMovieSaved, setIsMovieSaved] = useState(() => {
     return moviesByCurrentUser.find((item) => item.movieId === cardData.id) ? true : false
   });
 
-  const jwt = localStorage.getItem('jwt');
+  function getMovieId() {
+    if (parrentComponent === `Movies`) {
+      return moviesByCurrentUser.find((item) => item.movieId === cardData.id) ? moviesByCurrentUser.find((item) => item.movieId === cardData.id)._id : null
+    } else {
+      return cardData._id;
+    }
+  }
 
   function handleChangeMovieSaving(e) {
     if (!isMovieSaved) {
@@ -27,7 +33,7 @@ function MoviesCard(props) {
       })
     } else {
       setIsMovieSaved(!isMovieSaved);
-      mainApi.deleteMovie(movieId, jwt)
+      mainApi.deleteMovie(getMovieId(), jwt)
       .then((res) => {
         console.log(res);
       })
@@ -35,7 +41,10 @@ function MoviesCard(props) {
         console.log(err);
       })
     }
-    
+  }
+
+  function handleDeleteMovie() {
+    onDeleteMovie(getMovieId());
   }
 
   return (
@@ -50,7 +59,7 @@ function MoviesCard(props) {
           <span className="movies__checkbox-slider"></span>
         </label>)
         :
-        (<img className="movies__delete-icon" src={deleteIcon} alt="delete icon" />)
+        (<img className="movies__delete-icon" src={deleteIcon} onClick={handleDeleteMovie} alt="delete icon" />)
         }
       </div>
       <p className="movies__movie-duration">{cardData.duration}</p>

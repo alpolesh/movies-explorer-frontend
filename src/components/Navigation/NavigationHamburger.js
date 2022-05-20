@@ -16,7 +16,7 @@ function NavigationHamburger() {
         <div className="header__burger-background"></div>
         <img className="header__navigation-close-icon" src={closeIcon} alt="close icon" onClick={changeHamburgerMenuState} />
         <div className="header__navigation header__navigation_menu_hamburger">
-          <Link to={routes.main} className="header__link-container header__link-container_menu_hamburger"><p className="header__link header__link_type_bold header__link_menu_hamburger">Главная</p></Link>
+          <Link to={routes.main} className={`header__link-container header__link-container_menu_hamburger ${location.pathname === routes.main ? `header__link-container_active` : ``}`}><p className="header__link header__link_type_bold header__link_menu_hamburger">Главная</p></Link>
           <Link to={routes.movies} className={`header__link-container header__link-container_menu_hamburger ${location.pathname === routes.movies ? `header__link-container_active` : ``}`}><p className="header__link header__link_type_bold header__link_menu_hamburger">Фильмы</p></Link>
           <Link to={routes.savedMovies} className={`header__link-container header__link-container_menu_hamburger ${location.pathname === routes.savedMovies ? `header__link-container_active` : ``}`}><p className="header__link header__link_menu_hamburger">Сохранённые фильмы</p></Link>
           <Link to={routes.profile} className={`header__link-container header__link-container_menu_hamburger ${location.pathname === routes.profile ? `header__link-container_active` : ``}`}>
