@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import deleteIcon from '../../images/header__navigation-close-icon.png';
 import mainApi from '../../utils/MainApi';
+import {createMovie, deleteMovie} from '../../utils/utils';
 
 function MoviesCard(props) {
   const jwt = localStorage.getItem('jwt');
   const {cardData, parrentComponent, moviesByCurrentUser, onDeleteMovie} = props;
   const imageUrl = parrentComponent === `Movies` ? "https://api.nomoreparties.co" + cardData.image.url : cardData.image;
-  // const [movieId, setMovieId] = useState(() => {
-  //   return moviesByCurrentUser.find((item) => item.movieId === cardData.id) ? moviesByCurrentUser.find((item) => item.movieId === cardData.id)._id : null
-  // });
+
   const [isMovieSaved, setIsMovieSaved] = useState(() => {
     return moviesByCurrentUser.find((item) => item.movieId === cardData.id) ? true : false
   });
@@ -24,26 +23,14 @@ function MoviesCard(props) {
   function handleChangeMovieSaving(e) {
     if (!isMovieSaved) {
       setIsMovieSaved(!isMovieSaved);
-      mainApi.createMovie(cardData, jwt)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+      createMovie(cardData, jwt);
     } else {
       setIsMovieSaved(!isMovieSaved);
-      mainApi.deleteMovie(getMovieId(), jwt)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+      deleteMovie(getMovieId(), jwt);
     }
   }
 
-  function handleDeleteMovie() {
+  async function handleDeleteMovie() {
     onDeleteMovie(getMovieId());
   }
 

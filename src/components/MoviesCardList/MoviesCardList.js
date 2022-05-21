@@ -19,7 +19,7 @@ function MoviesCardList(props) {
         :
         moviesArrForRender.map((card) => (
           <MoviesCard 
-            key={card.id}
+            key={parrentComponent === 'Movie' ? card.id : card._id}
             cardData={card}
             parrentComponent={parrentComponent}
             moviesByCurrentUser={moviesByCurrentUser}

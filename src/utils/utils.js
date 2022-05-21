@@ -1,9 +1,18 @@
+import mainApi from "./MainApi";
+
+export function filterMoviesAccToDuration(arr, searchShortMovieIsChecked) {
+  if (!searchShortMovieIsChecked) {
+    const resMovieArr = arr.filter((item) => item.duration > 40)
+    return resMovieArr;
+  } else return arr;
+}
+
 export function filterCardsAccToInput(inputText, arr) {
-  const resultsRU = arr.filter((item) => item.nameRU.includes(inputText));
+  const resultsRU = arr.filter((item) => item.nameRU.toLowerCase().includes(inputText.toLowerCase()));
   if (resultsRU.length === 0) {
     const resultsEN = arr.filter((item) => {
       if (item.nameEN !== null) {
-        return item.nameEN.includes(inputText)
+        return item.nameEN.toLowerCase().includes(inputText.toLowerCase())
       }
       return '';
     });
@@ -61,3 +70,24 @@ export function validateProfileForm(values) {
   }
   return errors;
 };
+
+export function createMovie(cardData, jwt) {
+  mainApi.createMovie(cardData, jwt)
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
+export function deleteMovie(movieId, jwt) {
+  mainApi.deleteMovie(movieId, jwt)
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+

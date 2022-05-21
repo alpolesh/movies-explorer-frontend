@@ -6,7 +6,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import Footer from '../Footer/Footer';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
-import {filterCardsAccToInput} from '../../utils/utils';
+import {filterCardsAccToInput, filterMoviesAccToDuration} from '../../utils/utils';
 import useNumberOfCardsWithResolution from '../../utils/useNumberOfCardsWithResolution';
 
 function Movies() {
@@ -23,9 +23,7 @@ function Movies() {
   const [errorFromServer, setErrorFromServer] = useState(false);
   const [isSearchedPreviously, setIsSearchedPreviously] = useState(false);
 
-  const [filteredMovies, setFilteredMovies] = useState(() => {
-    return localStorage.getItem('moviesFromBeatfilm') ? filterCardsAccToInput(searchMovieTitle, JSON.parse(localStorage.getItem('moviesFromBeatfilm'))) : [];
-  })
+  const [filteredMovies, setFilteredMovies] = useState([])
 
   const [moviesArrForRender, setMoviesArrForRender] = useState(filteredMovies.slice(0, calculateNumberOfCardsWithResolution()));
   const [moviesByCurrentUser, setMoviesByCurrentUser] = useState([]);
@@ -34,11 +32,19 @@ function Movies() {
     setMoviesArrForRender(moviesArrForRender.concat(filteredMovies.slice(moviesArrForRender.length, moviesArrForRender.length + calculateNumberOfCardsWithResolution())))
   }
 
+  function filterMovies(inputsData, moviesArr) {
+    setFilteredMovies(filterMoviesAccToDuration(filterCardsAccToInput(inputsData, moviesArr), searchShortMovieIsChecked));
+  }
+
   useEffect(() => {
     setMoviesArrForRender(filteredMovies.slice(0, calculateNumberOfCardsWithResolution()));
     setIsRequestFetching(true);
     getAllMoviesByUser(jwt);
   }, [filteredMovies])
+
+  useEffect(() => {
+    filterMovies(searchMovieTitle, localStorage.getItem('moviesFromBeatfilm') ? JSON.parse(localStorage.getItem('moviesFromBeatfilm')) : []);
+  }, [searchShortMovieIsChecked])
 
   function getAllMoviesByUser(jwt) {
     mainApi.getAllMoviesByCurrentUser(jwt)
@@ -57,10 +63,9 @@ function Movies() {
     setIsSearchedPreviously(true);
     setErrorFromServer(false);
     localStorage.setItem('searchMovieTitle', JSON.stringify(searchMovieTitle));
-    localStorage.setItem('searchShortMovieIsChecked', JSON.stringify(searchShortMovieIsChecked));
     if (localStorage.getItem('moviesFromBeatfilm')) {
       const moviesArr = JSON.parse(localStorage.getItem('moviesFromBeatfilm'));
-      setFilteredMovies(filterCardsAccToInput(inputsData, moviesArr));
+      filterMovies(inputsData, moviesArr);
       setIsRequestFetching(true);
     } else {
       moviesApi.getInitialMovies()
@@ -68,7 +73,7 @@ function Movies() {
         localStorage.setItem('moviesFromBeatfilm', JSON.stringify(res));
         console.log(JSON.parse(localStorage.getItem('moviesFromBeatfilm')));
         const moviesArr = JSON.parse(localStorage.getItem('moviesFromBeatfilm'));
-        setFilteredMovies(filterCardsAccToInput(inputsData, moviesArr));
+        filterMovies(inputsData, moviesArr);
         setIsRequestFetching(false);
         } 
       )
@@ -89,6 +94,7 @@ function Movies() {
         setSearchMovieTitle={setSearchMovieTitle}
         searchShortMovieIsChecked={searchShortMovieIsChecked}
         setSearchShortMovieIsChecked={setSearchShortMovieIsChecked}
+        parrentComponent='Movies'
       />
       {isRequestFetching 
       ? 

@@ -3,7 +3,7 @@ import searchIcon from '../../images/search__icon.png';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm(props) {
-  const {searchMovieTitle, setSearchMovieTitle, searchShortMovieIsChecked, setSearchShortMovieIsChecked} = props;
+  const {searchMovieTitle, setSearchMovieTitle, searchShortMovieIsChecked, setSearchShortMovieIsChecked, parrentComponent} = props;
 
   function handleChangeMovieTitle(e) {
     setSearchMovieTitle(e.target.value);
@@ -25,6 +25,7 @@ function SearchForm(props) {
       <FilterCheckbox 
         searchShortMovieIsChecked={searchShortMovieIsChecked}
         setSearchShortMovieIsChecked={setSearchShortMovieIsChecked}
+        parrentComponent={parrentComponent}
       />
     </section>
   )

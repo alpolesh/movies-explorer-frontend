@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
 function FilterCheckbox(props) {
-  const {searchShortMovieIsChecked, setSearchShortMovieIsChecked} = props;
+  const {searchShortMovieIsChecked, setSearchShortMovieIsChecked, parrentComponent} = props;
 
   function handleChangeShortFilmCheckbox(e) {
     setSearchShortMovieIsChecked(!searchShortMovieIsChecked);
   }
+
+  useEffect(() => {
+    if (parrentComponent === 'Movies') {
+      localStorage.setItem('searchShortMovieIsChecked', JSON.stringify(searchShortMovieIsChecked));
+    }
+  }, [searchShortMovieIsChecked])
 
   return (
     <div className="search__short-movies-filter">

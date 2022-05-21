@@ -5,7 +5,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import Preloader from '../Preloader/Preloader';
 import Footer from '../Footer/Footer';
 import useNumberOfCardsWithResolution from '../../utils/useNumberOfCardsWithResolution';
-import {filterCardsAccToInput} from '../../utils/utils';
+import {filterCardsAccToInput,filterMoviesAccToDuration} from '../../utils/utils';
 import mainApi from '../../utils/MainApi';
 
 function SavedMovies() {
@@ -19,7 +19,7 @@ function SavedMovies() {
   // const [isSearchedPreviously, setIsSearchedPreviously] = useState(false);
   const [moviesByCurrentUser, setMoviesByCurrentUser] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState(moviesByCurrentUser);
-  const [moviesArrForRender, setMoviesArrForRender] = useState(filteredMovies.slice(0, calculateNumberOfCardsWithResolution()));
+  const [moviesArrForRender, setMoviesArrForRender] = useState([]);
   const [isMovieDeleted, setIsMovieDeleted] = useState(false);
 
   function getAllMoviesByCurrentUser() {
@@ -28,8 +28,7 @@ function SavedMovies() {
     .then((res) => {
       console.log(res.data);
       setMoviesByCurrentUser(res.data);
-      setMoviesArrForRender(res.data.slice(0, calculateNumberOfCardsWithResolution()));
-      setIsRequestFetching(false)
+      setIsRequestFetching(false);
     })
     .catch((err) => {
       console.log(err);
@@ -38,16 +37,28 @@ function SavedMovies() {
     })
   }
 
+  function filterMovies(inputsData, moviesArr) {
+    setFilteredMovies(filterMoviesAccToDuration(filterCardsAccToInput(inputsData, moviesArr), searchShortMovieIsChecked));
+  }
+
   useEffect(() => {
     getAllMoviesByCurrentUser();
   }, [])
+
+  useEffect(() => {
+    filterMovies(searchMovieTitle, moviesByCurrentUser);
+  }, [moviesByCurrentUser])
   
   useEffect(() => {
-    setMoviesArrForRender(filteredMovies.slice(0, calculateNumberOfCardsWithResolution()));
+    setMoviesArrForRender(filteredMovies);
   }, [filteredMovies]);
 
+  useEffect(() => {
+    filterMovies(searchMovieTitle, moviesByCurrentUser);
+  }, [searchShortMovieIsChecked])
+
   function handleSearchMovieClick(inputsData) {
-    setFilteredMovies(filterCardsAccToInput(inputsData, moviesByCurrentUser));
+    filterMovies(inputsData, moviesByCurrentUser);
   }
 
   function deleteMovie(movieId) {
@@ -60,7 +71,6 @@ function SavedMovies() {
       console.log(err);
     })
   }
-  
 
   return (
     <>
