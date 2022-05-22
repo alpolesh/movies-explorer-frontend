@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Form from '../Form/Form';
 import useForm from '../useForm/useForm';
 import { validateRegisterForm } from '../../utils/utils';
-import mainApi from '../../utils/MainApi';
 
 function Register({ onRegister, errorFromServer, setErrorFromServer }) {
   const {

@@ -7,8 +7,6 @@ import mainApi from '../../utils/MainApi.js';
 import Header from '../Header/Header';
 import { routes } from '../../constants/constants.js'
 
-
-
 function Profile({ setCurrentUser, setIsLoggedIn }) {
   const {currentUser} = useContext(CurrentUserContext);
   const jwt = localStorage.getItem('jwt');
@@ -38,7 +36,6 @@ function Profile({ setCurrentUser, setIsLoggedIn }) {
     }
     mainApi.updateProfile(newUserData, jwt)
     .then((result) => {
-      console.log(result);
       setCurrentUser({name: result.name, email: result.email})
       resetForm();
       setMessageFromServer('Изменения прошли успешно!');

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { routes } from '../../constants/constants.js'
 import './App.css';
@@ -15,7 +15,6 @@ import mainApi from '../../utils/MainApi.js';
 
 
 function App() {
-  
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState(localStorage.getItem('jwt'))
@@ -24,7 +23,6 @@ function App() {
   function handleRegister(inputsData) {
     mainApi.signUp(inputsData.name, inputsData.email, inputsData.password) 
     .then((result) => {
-      console.log(result);
       handleLogin(inputsData);
       }
     )
@@ -37,13 +35,15 @@ function App() {
   function handleLogin(inputsData) {
     mainApi.signIn(inputsData.email, inputsData.password) 
     .then((result) => {
-      console.log(result);
       localStorage.setItem('jwt', result.data.token);
       setToken(result.data.token);
       setIsLoggedIn(true);
       mainApi.getUserData(result.data.token) 
       .then((result) => {
         setCurrentUser({name: result.name, email: result.email})
+      })
+      .catch((err) => {
+        throw Error(err);
       })
       }
     )
@@ -52,6 +52,19 @@ function App() {
       setErrorFromServer(err);
     })
   }
+
+  useEffect(() => {
+    if (token) {
+      mainApi.getUserData(token) 
+      .then((result) => {
+        setCurrentUser({name: result.name, email: result.email});
+        setIsLoggedIn(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+  }, [])
 
   return (
     <CurrentUserContext.Provider value={{currentUser, isLoggedIn}}>
@@ -92,9 +105,6 @@ function App() {
               isLoggedIn={isLoggedIn}
               component={SavedMovies}
             />
-            {/* <Route exact path={routes.savedMovies}>
-              <SavedMovies />
-            </Route> */}
             <ProtectedRoute 
               exact path={routes.profile}
               isLoggedIn={isLoggedIn}

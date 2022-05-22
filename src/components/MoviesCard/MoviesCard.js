@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import deleteIcon from '../../images/header__navigation-close-icon.png';
-import mainApi from '../../utils/MainApi';
-import {createMovie, deleteMovie} from '../../utils/utils';
+import {createMovie, deleteMovie, getDurationInHoursFormat} from '../../utils/utils';
 
 function MoviesCard(props) {
   const jwt = localStorage.getItem('jwt');
   const {cardData, parrentComponent, moviesByCurrentUser, onDeleteMovie} = props;
   const imageUrl = parrentComponent === `Movies` ? "https://api.nomoreparties.co" + cardData.image.url : cardData.image;
+  const trailerLink = parrentComponent === `Movies` ? cardData.trailerLink : cardData.trailer;
+  const duration = getDurationInHoursFormat(cardData.duration)
 
   const [isMovieSaved, setIsMovieSaved] = useState(() => {
     return moviesByCurrentUser.find((item) => item.movieId === cardData.id) ? true : false
@@ -30,13 +31,17 @@ function MoviesCard(props) {
     }
   }
 
-  async function handleDeleteMovie() {
+  function handleDeleteMovie() {
     onDeleteMovie(getMovieId());
+  }
+
+  function handleImageClick() {
+    window.open(trailerLink, '_blank');
   }
 
   return (
     <li className="movies__card-container">
-      <img className="movies__image" src={imageUrl} alt="обложка фильма" />
+      <img className="movies__image" src={imageUrl} alt="обложка фильма" onClick={handleImageClick}/>
       <div className="movies__movie-info">
         <h4 className="movies__movie-title">{cardData.nameRU}</h4>
         {parrentComponent === 'Movies' 
@@ -49,7 +54,7 @@ function MoviesCard(props) {
         (<img className="movies__delete-icon" src={deleteIcon} onClick={handleDeleteMovie} alt="delete icon" />)
         }
       </div>
-      <p className="movies__movie-duration">{cardData.duration}</p>
+      <p className="movies__movie-duration">{duration}</p>
     </li>
   )
 }

@@ -49,7 +49,6 @@ function Movies() {
   function getAllMoviesByUser(jwt) {
     mainApi.getAllMoviesByCurrentUser(jwt)
     .then((res) => {
-      console.log(res.data);
       setMoviesByCurrentUser(res.data);
       setIsRequestFetching(false);
     })

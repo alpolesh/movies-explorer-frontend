@@ -15,6 +15,10 @@
   width: 100%;
 }
 
+.movies__image:hover {
+  cursor: pointer;
+}
+
 .movies__movie-info {
   display: flex;
   justify-content: space-between;

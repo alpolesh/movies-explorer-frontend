@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 function FilterCheckbox(props) {
   const {searchShortMovieIsChecked, setSearchShortMovieIsChecked, parrentComponent} = props;

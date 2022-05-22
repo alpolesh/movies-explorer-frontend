@@ -21,6 +21,12 @@ export function filterCardsAccToInput(inputText, arr) {
   return resultsRU;
 }
 
+export function getDurationInHoursFormat(durationInMinutes) {
+  const hours = Math.floor(durationInMinutes / 60);
+  const minutes = durationInMinutes - hours * 60;
+  return hours !==0 ? `${hours}ч${minutes}м` : `${minutes}м`
+}
+
 export function validateRegisterForm(values) {
   let errors = {};
   if (!values.name) {

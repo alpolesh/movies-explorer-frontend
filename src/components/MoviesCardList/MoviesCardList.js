@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList(props) {
@@ -19,7 +19,7 @@ function MoviesCardList(props) {
         :
         moviesArrForRender.map((card) => (
           <MoviesCard 
-            key={parrentComponent === 'Movie' ? card.id : card._id}
+            key={parrentComponent === 'Movies' ? card.id : card._id}
             cardData={card}
             parrentComponent={parrentComponent}
             moviesByCurrentUser={moviesByCurrentUser}
