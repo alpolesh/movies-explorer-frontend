@@ -5,15 +5,12 @@ import Preloader from '../Preloader/Preloader';
 import SearchForm from "../SearchForm/SearchForm";
 import Footer from '../Footer/Footer';
 import moviesApi from '../../utils/moviesApi';
-import mainApi from '../../utils/MainApi';
 import {filterCardsAccToInput, filterMoviesAccToDuration} from '../../utils/utils';
 import useNumberOfCardsWithResolution from '../../utils/useNumberOfCardsWithResolution';
 
-function Movies() {
-  const jwt = localStorage.getItem('jwt');
+function Movies({setIsRequestFetching, isRequestFetching}) {
   const {calculateNumberOfCardsWithResolution} = useNumberOfCardsWithResolution();
 
-  const [isRequestFetching, setIsRequestFetching] = useState(false);
   const [searchMovieTitle, setSearchMovieTitle] = useState(() => {
     return localStorage.getItem('searchMovieTitle') ? JSON.parse(localStorage.getItem('searchMovieTitle')) : ''
   });
@@ -22,11 +19,8 @@ function Movies() {
   });
   const [errorFromServer, setErrorFromServer] = useState(false);
   const [isSearchedPreviously, setIsSearchedPreviously] = useState(false);
-
   const [filteredMovies, setFilteredMovies] = useState([])
-
   const [moviesArrForRender, setMoviesArrForRender] = useState(filteredMovies.slice(0, calculateNumberOfCardsWithResolution()));
-  const [moviesByCurrentUser, setMoviesByCurrentUser] = useState([]);
 
   function handleButtonMoreClick() {
     setMoviesArrForRender(moviesArrForRender.concat(filteredMovies.slice(moviesArrForRender.length, moviesArrForRender.length + calculateNumberOfCardsWithResolution())))
@@ -38,25 +32,12 @@ function Movies() {
 
   useEffect(() => {
     setMoviesArrForRender(filteredMovies.slice(0, calculateNumberOfCardsWithResolution()));
-    setIsRequestFetching(true);
-    getAllMoviesByUser(jwt);
+    setIsRequestFetching(false);
   }, [filteredMovies])
 
   useEffect(() => {
     filterMovies(searchMovieTitle, localStorage.getItem('moviesFromBeatfilm') ? JSON.parse(localStorage.getItem('moviesFromBeatfilm')) : []);
   }, [searchShortMovieIsChecked])
-
-  function getAllMoviesByUser(jwt) {
-    mainApi.getAllMoviesByCurrentUser(jwt)
-    .then((res) => {
-      setMoviesByCurrentUser(res.data);
-      setIsRequestFetching(false);
-    })
-    .catch((err) => {
-      console.log(err);
-      setIsRequestFetching(false);
-    })
-  }
 
   function handleSearchMovieClick(inputsData) {
     setIsSearchedPreviously(true);
@@ -105,7 +86,6 @@ function Movies() {
           isSearchedPreviously={isSearchedPreviously}
           moviesArrForRender={moviesArrForRender}
           errorFromServer={errorFromServer}
-          moviesByCurrentUser={moviesByCurrentUser}
         />
         {filteredMovies.length !== moviesArrForRender.length
         ?

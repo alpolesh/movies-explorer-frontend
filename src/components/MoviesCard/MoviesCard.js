@@ -1,24 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import deleteIcon from '../../images/header__navigation-close-icon.png';
-import {createMovie, deleteMovie, getDurationInHoursFormat} from '../../utils/utils';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import {getDurationInHoursFormat} from '../../utils/utils';
+import mainApi from '../../utils/MainApi';
 
 function MoviesCard(props) {
   const jwt = localStorage.getItem('jwt');
-  const {cardData, parrentComponent, moviesByCurrentUser, onDeleteMovie} = props;
-  const imageUrl = parrentComponent === `Movies` ? "https://api.nomoreparties.co" + cardData.image.url : cardData.image;
-  const trailerLink = parrentComponent === `Movies` ? cardData.trailerLink : cardData.trailer;
-  const duration = getDurationInHoursFormat(cardData.duration)
+  const {savedFilmsDictionary, setSavedFilmsDictionary} = useContext(CurrentUserContext);
+  const {cardData, parrentComponent} = props;
+  const imageUrl = "https://api.nomoreparties.co" + cardData.image.url;
+  const trailerLink = cardData.trailerLink;
+  const duration = getDurationInHoursFormat(cardData.duration);
 
   const [isMovieSaved, setIsMovieSaved] = useState(() => {
-    return moviesByCurrentUser.find((item) => item.movieId === cardData.id) ? true : false
+    return Object.keys(savedFilmsDictionary).includes(cardData.id.toString()) ? true : false
   });
 
-  function getMovieId() {
-    if (parrentComponent === `Movies`) {
-      return moviesByCurrentUser.find((item) => item.movieId === cardData.id) ? moviesByCurrentUser.find((item) => item.movieId === cardData.id)._id : null
-    } else {
-      return cardData._id;
-    }
+  function createMovie(cardData, jwt) {
+    mainApi.createMovie(cardData, jwt)
+    .then((res) => {
+      setSavedFilmsDictionary((savedFilmsDictionary) => ({...savedFilmsDictionary, [cardData.id]: res.data._id}))
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+  
+  function deleteMovie(movieId, jwt) {
+    mainApi.deleteMovie(movieId, jwt)
+    .then((res) => {
+      setSavedFilmsDictionary((savedFilmsDictionary) => {
+        const state = {...savedFilmsDictionary}
+        delete state[cardData.id];
+        return state;
+      })
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   function handleChangeMovieSaving(e) {
@@ -27,12 +46,8 @@ function MoviesCard(props) {
       createMovie(cardData, jwt);
     } else {
       setIsMovieSaved(!isMovieSaved);
-      deleteMovie(getMovieId(), jwt);
+      deleteMovie(savedFilmsDictionary[cardData.id], jwt);
     }
-  }
-
-  function handleDeleteMovie() {
-    onDeleteMovie(getMovieId());
   }
 
   function handleImageClick() {
@@ -51,7 +66,7 @@ function MoviesCard(props) {
           <span className="movies__checkbox-slider"></span>
         </label>)
         :
-        (<img className="movies__delete-icon" src={deleteIcon} onClick={handleDeleteMovie} alt="delete icon" />)
+        (<img className="movies__delete-icon" src={deleteIcon} onClick={handleChangeMovieSaving} alt="delete icon" />)
         }
       </div>
       <p className="movies__movie-duration">{duration}</p>

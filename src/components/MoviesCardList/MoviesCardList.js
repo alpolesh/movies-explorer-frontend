@@ -2,7 +2,7 @@ import React from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList(props) {
-  const {parrentComponent, isSearchedPreviously, moviesArrForRender, errorFromServer, moviesByCurrentUser, onDeleteMovie} = props;
+  const {parrentComponent, isSearchedPreviously, moviesArrForRender, errorFromServer} = props;
 
   return (
     <section className="movies">
@@ -19,11 +19,9 @@ function MoviesCardList(props) {
         :
         moviesArrForRender.map((card) => (
           <MoviesCard 
-            key={parrentComponent === 'Movies' ? card.id : card._id}
+            key={card.id}
             cardData={card}
             parrentComponent={parrentComponent}
-            moviesByCurrentUser={moviesByCurrentUser}
-            onDeleteMovie={onDeleteMovie}
           />
         ))
         }

@@ -1,34 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Header from "../Header/Header";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
-import Preloader from '../Preloader/Preloader';
 import Footer from '../Footer/Footer';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import {filterCardsAccToInput,filterMoviesAccToDuration} from '../../utils/utils';
-import mainApi from '../../utils/MainApi';
 
 function SavedMovies() {
-  const jwt = localStorage.getItem('jwt');
-  const [isRequestFetching, setIsRequestFetching] = useState(false);
+  const {savedFilmsDictionary} = useContext(CurrentUserContext);
   const [searchMovieTitle, setSearchMovieTitle] = useState('');
   const [searchShortMovieIsChecked, setSearchShortMovieIsChecked] = useState(false);
-  const [errorFromServer, setErrorFromServer] = useState(false);
-  const [moviesByCurrentUser, setMoviesByCurrentUser] = useState([]);
-  const [filteredMovies, setFilteredMovies] = useState(moviesByCurrentUser);
+  const [filteredMovies, setFilteredMovies] = useState([]);
   const [moviesArrForRender, setMoviesArrForRender] = useState([]);
 
-  function getAllMoviesByCurrentUser() {
-    setIsRequestFetching(true);
-    mainApi.getAllMoviesByCurrentUser(jwt)
-    .then((res) => {
-      setMoviesByCurrentUser(res.data);
-      setIsRequestFetching(false);
-    })
-    .catch((err) => {
-      console.log(err);
-      setIsRequestFetching(false);
-      setErrorFromServer(true);
-    })
+  function getMoviesByCurrentUser() {
+    const moviesArr = JSON.parse(localStorage.getItem('moviesFromBeatfilm'));
+    const resArr = moviesArr.filter((item) => Object.keys(savedFilmsDictionary).includes(item.id.toString()));
+    return resArr;
   }
 
   function filterMovies(inputsData, moviesArr) {
@@ -36,33 +24,20 @@ function SavedMovies() {
   }
 
   useEffect(() => {
-    getAllMoviesByCurrentUser();
-  }, [])
-
-  useEffect(() => {
-    filterMovies(searchMovieTitle, moviesByCurrentUser);
-  }, [moviesByCurrentUser])
+    console.log(getMoviesByCurrentUser())
+    filterMovies(searchMovieTitle, getMoviesByCurrentUser());
+  }, [savedFilmsDictionary])
   
   useEffect(() => {
     setMoviesArrForRender(filteredMovies);
   }, [filteredMovies]);
 
   useEffect(() => {
-    filterMovies(searchMovieTitle, moviesByCurrentUser);
+    filterMovies(searchMovieTitle, getMoviesByCurrentUser());
   }, [searchShortMovieIsChecked])
 
   function handleSearchMovieClick(inputsData) {
-    filterMovies(inputsData, moviesByCurrentUser);
-  }
-
-  function deleteMovie(movieId) {
-    mainApi.deleteMovie(movieId, jwt)
-    .then((res) => {
-      getAllMoviesByCurrentUser();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    filterMovies(inputsData, getMoviesByCurrentUser());
   }
 
   return (
@@ -76,19 +51,11 @@ function SavedMovies() {
           searchShortMovieIsChecked={searchShortMovieIsChecked}
           setSearchShortMovieIsChecked={setSearchShortMovieIsChecked}
         />
-        {isRequestFetching 
-        ? 
-        <Preloader /> 
-        : 
         <MoviesCardList 
           parrentComponent='Saved-movies'
           isSearchedPreviously={true}
           moviesArrForRender={moviesArrForRender}
-          errorFromServer={errorFromServer}
-          moviesByCurrentUser={moviesByCurrentUser}
-          onDeleteMovie={deleteMovie}
         />
-        }
       </div>
       <Footer />
     </>

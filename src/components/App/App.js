@@ -19,6 +19,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState(localStorage.getItem('jwt'))
   const [errorFromServer, setErrorFromServer] = useState('');
+  const [savedFilmsDictionary, setSavedFilmsDictionary] = useState({});
+  const [isRequestFetching, setIsRequestFetching] = useState(false);
 
   function handleRegister(inputsData) {
     mainApi.signUp(inputsData.name, inputsData.email, inputsData.password) 
@@ -36,6 +38,7 @@ function App() {
     mainApi.signIn(inputsData.email, inputsData.password) 
     .then((result) => {
       localStorage.setItem('jwt', result.data.token);
+      getAllMoviesByUser(result.data.token)
       setToken(result.data.token);
       setIsLoggedIn(true);
       mainApi.getUserData(result.data.token) 
@@ -58,7 +61,7 @@ function App() {
       mainApi.getUserData(token) 
       .then((result) => {
         setCurrentUser({name: result.name, email: result.email});
-        setIsLoggedIn(true);
+        getAllMoviesByUser(token);
       })
       .catch((err) => {
         console.log(err);
@@ -66,8 +69,30 @@ function App() {
     }
   }, [])
 
+  function getAllMoviesByUser(jwt) {
+    mainApi.getAllMoviesByCurrentUser(jwt)
+    .then((res) => {
+      setSavedFilmsDictionary(function() {
+        const resObj = {};
+        for(let key in res.data) {
+          resObj[res.data[key].movieId] = res.data[key]._id;
+        }
+        return resObj;
+      })
+      setIsRequestFetching(false);
+    })
+    .then((res) => {
+      setIsLoggedIn(true);
+
+    })
+    .catch((err) => {
+      console.log(err);
+      setIsRequestFetching(false);
+    })
+  }
+
   return (
-    <CurrentUserContext.Provider value={{currentUser, isLoggedIn}}>
+    <CurrentUserContext.Provider value={{currentUser, isLoggedIn, savedFilmsDictionary, setSavedFilmsDictionary}}>
       <div className="App">
         <BrowserRouter>
           <Switch>
@@ -99,6 +124,9 @@ function App() {
               exact path={routes.movies}
               isLoggedIn={isLoggedIn}
               component={Movies}
+              getAllMoviesByUser={getAllMoviesByUser}
+              setIsRequestFetching={setIsRequestFetching}
+              isRequestFetching={isRequestFetching}
             />
             <ProtectedRoute 
               exact path={routes.savedMovies}
