@@ -4,7 +4,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from '../Preloader/Preloader';
 import SearchForm from "../SearchForm/SearchForm";
 import Footer from '../Footer/Footer';
-import moviesApi from '../../utils/MoviesApi';
+import moviesApi from '../../utils/moviesApi';
 import mainApi from '../../utils/MainApi';
 import {filterCardsAccToInput, filterMoviesAccToDuration} from '../../utils/utils';
 import useNumberOfCardsWithResolution from '../../utils/useNumberOfCardsWithResolution';
