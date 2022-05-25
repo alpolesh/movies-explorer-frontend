@@ -1,8 +1,8 @@
-import mainApi from "./MainApi";
+import { DurationOfShortMovie } from "../constants/constants";
 
 export function filterMoviesAccToDuration(arr, searchShortMovieIsChecked) {
   if (!searchShortMovieIsChecked) {
-    const resMovieArr = arr.filter((item) => item.duration > 40)
+    const resMovieArr = arr.filter((item) => item.duration > DurationOfShortMovie)
     return resMovieArr;
   } else return arr;
 }
@@ -77,23 +77,4 @@ export function validateProfileForm(values) {
   return errors;
 };
 
-export function createMovie(cardData, jwt) {
-  mainApi.createMovie(cardData, jwt)
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-}
-
-export function deleteMovie(movieId, jwt) {
-  mainApi.deleteMovie(movieId, jwt)
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-}
 

@@ -18,9 +18,13 @@ function Profile({ setCurrentUser, setIsLoggedIn }) {
     errors,
     handleChange,
     handleSubmit,
-    isInputed,
-    resetForm
-  } = useForm(onChangeProfile, validateProfileForm);
+  } = useForm(onChangeProfile, validateProfileForm, currentUser);
+
+  function checkButtonDisability() {
+    if (Object.keys(errors).length !== 0 || Object.values(values).join('') === '' || (currentUser.name === values.name && currentUser.email === values.email)) {
+      return true;
+    } else return false;
+  }
 
   useEffect(() => {
     setMessageFromServer('');
@@ -37,7 +41,6 @@ function Profile({ setCurrentUser, setIsLoggedIn }) {
     mainApi.updateProfile(newUserData, jwt)
     .then((result) => {
       setCurrentUser({name: result.name, email: result.email})
-      resetForm();
       setMessageFromServer('Изменения прошли успешно!');
       }
     )
@@ -69,7 +72,7 @@ function Profile({ setCurrentUser, setIsLoggedIn }) {
           )}
           <div className="profile__input-container">
             <span className="profile__input-placeholder">Имя</span>
-            <input type="text" className="profile__input" name="name" value={values.name || ''} onChange={handleChange} placeholder={currentUser.name} />
+            <input type="text" className="profile__input" name="name" value={values.name || ''} onChange={handleChange} />
           </div>
           {errors.email && (
             <div className="form__error-container">
@@ -78,12 +81,12 @@ function Profile({ setCurrentUser, setIsLoggedIn }) {
           )}
           <div className="profile__input-container">
             <span className="profile__input-placeholder">E-mail</span>
-            <input type="email" className="profile__input" name="email" value={values.email || ''} onChange={handleChange} placeholder={currentUser.email} />
+            <input type="email" className="profile__input" name="email" value={values.email || ''} onChange={handleChange} />
           </div>
           <div className="profile__message-from-server-container">
             <p className="profile__message-from-server">{messageFromServer}</p>
           </div>
-          <button type="submit" className={(Object.keys(errors).length === 0 && isInputed) ? `profile__button-edit` : `profile__button-edit profile__button-edit_disabled`} disabled={Object.keys(errors).length !== 0 || Object.values(values).join('') === ''}>Редактировать</button>
+          <button type="submit" className={!checkButtonDisability() ? `profile__button-edit` : `profile__button-edit profile__button-edit_disabled`} disabled={checkButtonDisability()}>Редактировать</button>
         </form>
         <button className="profile__button-exit" onClick={handleExitFromAccount}>Выйти из аккаунта</button>
       </section>

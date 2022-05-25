@@ -1,8 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 
-const useForm = (callback, validate) => {
-
-  const [values, setValues] = useState({});
+const useForm = (callback, validate, initialValues) => {
+  const [values, setValues] = useState(initialValues || {});
   const [errors, setErrors] = useState({});
   const [isInputed, setIsInputed] = useState(false);
 

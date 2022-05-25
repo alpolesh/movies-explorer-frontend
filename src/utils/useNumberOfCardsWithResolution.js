@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { DisplayWidth, NumberOfCardsFor } from '../constants/constants';
 
 const useNumberOfCardsWithResolution = () => {
   const [widthDisplay, setWidthDisplay] = useState(window.innerWidth);
@@ -13,9 +14,9 @@ const useNumberOfCardsWithResolution = () => {
   });
 
   function calculateNumberOfCardsWithResolution() {
-    if (widthDisplay >= 1280) return 12;
-    else if (widthDisplay >= 768) return 8;
-    else if (widthDisplay >= 320) return 5;
+    if (widthDisplay >= DisplayWidth.laptop) return NumberOfCardsFor.laptop;
+    else if (widthDisplay >= DisplayWidth.tablet) return NumberOfCardsFor.tablet;
+    else if (widthDisplay >= DisplayWidth.mobile) return NumberOfCardsFor.mobile;
   }
 
   return {calculateNumberOfCardsWithResolution}
