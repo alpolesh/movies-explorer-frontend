@@ -23,13 +23,13 @@
   justify-content: space-between;
   align-items: center;
   padding-bottom: 16px;
-  margin-bottom: 17px;
+  margin-top: 17px;
   border-bottom: 1px solid #E8E8E8;
 }
 
-.profile__input-container:last-of-type {
+.profile__input-container:nth-last-of-type(2) {
   border-bottom: none;
-  margin-bottom: 0;
+  margin-bottom: 220px;
 }
 
 .profile__input-placeholder {
@@ -55,8 +55,13 @@
   border-radius: 5px;
 }
 
+.profile__message-from-server {
+  font-size: 13px;
+  color: #EE3465;
+  text-align: center;
+}
+
 .profile__button-edit {
-  margin-top: 220px;
   font-weight: normal;
   font-size: 13px;
   align-self: center;
@@ -65,9 +70,18 @@
   transition: opacity .4s;
 }
 
+.profile__button-edit_disabled {
+  color: #808080;
+}
+
 .profile__button-edit:hover {
   cursor: pointer;
   opacity: 0.6;
+}
+
+.profile__button-edit_disabled:hover {
+  cursor: not-allowed;
+  opacity: 1;
 }
 
 .profile__button-exit {
